@@ -137,3 +137,9 @@ docker run -d -p 6379:6379 --name redis redis:latest
 # Run the API
 cd backend/api
 uvicorn main:app --reload
+
+Run the Frontend Dashboard
+Simply open frontend/index.html in your browser or use Live Server in VS Code.
+
+The dashboard will connect to your API at http://localhost:8000
+
