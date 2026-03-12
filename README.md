@@ -55,19 +55,40 @@ Tested on CPU with batch processing:
 
 ## 🏗️ Architecture
 
-┌─────────────┐ ┌──────────────┐ ┌─────────────┐
-│ Client │────▶│ FastAPI │────▶│ ONNX │
-│ (Web/App) │ │ Backend │ │ Runtime │
-└─────────────┘ └──────────────┘ └─────────────┘
-│ │
-▼ ▼
-┌──────────────┐ ┌─────────────┐
-│ MongoDB │ │ Redis │
-│ Persistence │ │ Cache │
-└──────────────┘ └─────────────┘
-│ │
-▼ ▼
-┌──────────────┐ ┌─────────────┐
-│ Drift │ │ Velocity │
-│ Monitor │ │ Tracking │
+
+                     ┌──────────────────────────┐
+                     │        Client Layer       │
+                     │   Web App / Mobile App    │
+                     └─────────────┬─────────────┘
+                                   │
+                                   ▼
+                     ┌──────────────────────────┐
+                     │       API Layer           │
+                     │        FastAPI            │
+                     │   Backend Orchestration   │
+                     └─────────────┬─────────────┘
+                                   │
+                                   ▼
+                     ┌──────────────────────────┐
+                     │      Inference Engine     │
+                     │     ONNX Runtime (INT8)   │
+                     │   DistilBERT Fraud Model  │
+                     └─────────────┬─────────────┘
+                                   │
+              ┌────────────────────┴────────────────────┐
+              ▼                                         ▼
+     ┌────────────────────┐                 ┌────────────────────┐
+     │      MongoDB        │                 │        Redis        │
+     │   Review Storage    │                 │    Velocity Cache   │
+     │   Audit Logs        │                 │   User Rate Cache   │
+     └──────────┬──────────┘                 └──────────┬──────────┘
+                │                                       │
+                └──────────────┬────────────────────────┘
+                               ▼
+                     ┌──────────────────────────┐
+                     │   Monitoring & Analytics │
+                     │  Drift Detection (KS)    │
+                     │  Velocity Tracking       │
+                     │  Fraud Score Monitoring  │
+                     └──────────────────────────┘
 └──────────────┘ └─────────────┘
