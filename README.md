@@ -11,7 +11,6 @@ An AI-powered backend service that detects fraudulent reviews using NLP and beha
 - [Model Files](#-model-files)
 - [Training Instructions](#-training-instructions)
 - [API Documentation](#-api-documentation)
-- [Sample API Responses](#-sample-api-responses)
 - [Drift Monitoring](#-drift-monitoring)
 - [Testing](#-testing)
 - [Project Structure](#-project-structure)
