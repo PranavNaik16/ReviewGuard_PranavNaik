@@ -16,6 +16,7 @@ An AI-powered backend service that detects fraudulent reviews using NLP and beha
 - [Model Files](#-model-files)
 - [Training Instructions](#-training-instructions)
 - [API Documentation](#-api-documentation)
+- [Sample API Responses](#-sample-api-responses)
 - [Drift Monitoring](#-drift-monitoring)
 - [Testing](#-testing)
 - [Project Structure](#-project-structure)
@@ -329,6 +330,78 @@ http://localhost:8000/docs
 ```
 
 to explore the full API.
+
+## 📝 Sample API Responses
+
+### Batch Detection Request
+
+```json
+POST /api/reviews/detect/batch
+{
+  "reviews": [
+    {
+      "text": "best ever best ever best ever amazing 5 stars best product ever best ever",
+      "user_id": 999,
+      "rating": 5
+    },
+    {
+      "text": "This product works as expected. Good value for money. Delivery was fast.",
+      "user_id": 111,
+      "rating": 4
+    }
+  ]
+}
+```
+
+---
+
+### Batch Detection Response
+
+```json
+{
+  "results": [
+    {
+      "review_id": "550e8400-e29b-41d4-a716-446655440000",
+      "score": 0.9995,
+      "explanation": ["High fraud probability"],
+      "status": "quarantined"
+    },
+    {
+      "review_id": "6ba7b810-9dad-11d1-80b4-00c04fd430c8",
+      "score": 0.0003,
+      "explanation": [],
+      "status": "approved"
+    }
+  ]
+}
+```
+
+---
+
+### Single Review Submission
+
+```json
+POST /api/reviews/submit
+{
+  "text": "Amazing product! Highly recommend!",
+  "user_id": 123,
+  "rating": 5
+}
+```
+
+---
+
+### Health Check Response
+
+```json
+GET /api/health
+{
+  "api": "healthy",
+  "model": "loaded",
+  "database": true,
+  "redis": true
+}
+```
 
 ## 📈 Drift Monitoring
 
