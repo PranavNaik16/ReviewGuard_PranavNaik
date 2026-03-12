@@ -326,3 +326,72 @@ http://localhost:8000/docs
 
 to explore the full API.
 
+## 📈 Drift Monitoring
+
+The system continuously monitors model performance using the **Kolmogorov-Smirnov (KS) statistical test** to detect **data distribution drift** between training data and live predictions.
+
+---
+
+### ⚙️ How It Works
+
+- **Frequency:** Runs every **1 hour** using a background cron job
+- **Method:** Compares **live prediction score distribution** with the **training score distribution**
+- **Statistical Test:** Kolmogorov-Smirnov (KS Test)
+- **Drift Threshold:**  
+
+```
+p-value < 0.05
+```
+
+If the threshold is crossed, the system triggers a **drift alert**.
+
+- **Storage:** Drift events are logged in **MongoDB**
+
+---
+
+### 📡 Drift Status Endpoint
+
+```
+GET /api/drift/status
+```
+
+Example Response:
+
+```json
+{
+  "drift_detected": false,
+  "current_p_value": 0.234,
+  "recent_drifts": 0,
+  "samples_analyzed": 1250,
+  "drift_events": []
+}
+```
+
+---
+
+### ⚠️ Drift Alert Example (p < 0.05)
+
+When the system detects drift:
+
+```json
+{
+  "drift_detected": true,
+  "current_p_value": 0.023,
+  "recent_drifts": 1,
+  "drift_events": [
+    {
+      "timestamp": "2024-03-12T10:30:00Z",
+      "ks_statistic": 0.156,
+      "p_value": 0.023,
+      "sample_size": 500
+    }
+  ]
+}
+```
+
+---
+
+### 🧠 Why Drift Monitoring Matters
+
+Over time, fraud patterns may evolve (e.g., **AI-generated spam reviews**).  
+Drift monitoring helps detect when the model's training data **no longer represents real-world data**, signaling the need for **model retraining**.
