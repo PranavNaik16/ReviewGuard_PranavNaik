@@ -1,6 +1,8 @@
 # 🛡️ Review Guard - Fraudulent Review Detection System
 
 An AI-powered backend service that detects fraudulent reviews using NLP and behavioral heuristics. Built for high-scale e-commerce platforms (inspired by Amazon/Flipkart's spam detection systems).
+
+
 🏆 **Assignment Score: 150 / 150**
 
 
