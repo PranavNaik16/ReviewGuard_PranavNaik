@@ -285,3 +285,44 @@ Performance improvement:
 
 The **quantized ONNX model** is used by the **FastAPI inference service** for production.
 
+## 📡 API Documentation
+
+Once the server is running, open the interactive Swagger UI:
+
+```
+http://localhost:8000/docs
+```
+
+This provides a full interface to test all API endpoints.
+
+---
+
+### Available Endpoints
+
+| Method | Endpoint | Description |
+|------|------|------|
+| **POST** | `/api/reviews/detect/batch` | Batch fraud detection (supports up to **100 reviews per request**) |
+| **POST** | `/api/reviews/submit` | Submit a single review for fraud analysis |
+| **GET** | `/api/reviews/{id}` | Retrieve review details and fraud score by ID |
+| **GET** | `/api/drift/status` | View model drift monitoring status and statistics |
+| **GET** | `/api/health` | API health check (model, database, and cache status) |
+
+---
+
+### Swagger Testing Interface
+
+The Swagger UI allows you to:
+
+- Test endpoints directly from the browser
+- View request/response schemas
+- Execute batch fraud detection requests
+- Monitor API responses in real time
+
+Open:
+
+```
+http://localhost:8000/docs
+```
+
+to explore the full API.
+
