@@ -91,4 +91,49 @@ Tested on CPU with batch processing:
                      │  Velocity Tracking       │
                      │  Fraud Score Monitoring  │
                      └──────────────────────────┘
-└──────────────┘ └─────────────┘
+
+
+## 💻 Tech Stack
+
+### Backend
+- **FastAPI** - High-performance async API framework
+- **Uvicorn** - ASGI server
+- **MongoDB** - Review storage with indexes
+- **Redis** - Velocity caching (24h TTL)
+- **Pytest** - Unit testing with 88% coverage
+
+### Machine Learning
+- **Hugging Face Transformers** - DistilBERT model
+- **PyTorch** - Deep learning framework
+- **ONNX Runtime** - Optimized inference
+- **Scikit-learn** - SMOTE, preprocessing
+- **Imbalanced-learn** - SMOTE for handling class imbalance
+
+### Frontend
+- **HTML/CSS/JavaScript** - Simple dashboard
+- **Fetch API** - REST API integration
+
+## 🚀 Quick Start
+
+### Prerequisites
+- Python 3.9+
+- Docker (for MongoDB and Redis)
+- 8GB RAM minimum
+
+### Installation
+
+```bash
+# Clone repository
+git clone https://github.com/PranavNaik16/ReviewGuard_PranavNaik.git
+cd ReviewGuard_PranavNaik
+
+# Install dependencies
+pip install -r backend/requirements.txt
+
+# Start MongoDB & Redis with Docker
+docker run -d -p 27017:27017 --name mongodb mongo:latest
+docker run -d -p 6379:6379 --name redis redis:latest
+
+# Run the API
+cd backend/api
+uvicorn main:app --reload
