@@ -142,4 +142,36 @@ Run the Frontend Dashboard
 Simply open frontend/index.html in your browser or use Live Server in VS Code.
 
 The dashboard will connect to your API at http://localhost:8000
+```
+
+## 📦 Model Files
+
+The trained model files are **not included in the GitHub repository** due to file size limitations (>50 MB). 
+
+### To get the model files:
+
+**Option 1: Generate them yourself**
+```bash
+# Run these commands to create all model files
+python ml/generate_data.py
+python ml/preprocessing/preprocess.py
+python ml/training/train.py
+python ml/export/convert_to_onnx.py
+```
+**Option 2: Download model files from Google Drive**
+```bash
+[**Click here to download all model files**]([https://drive.google.com/your-link-here](https://drive.google.com/drive/folders/1MwDD241H39wSH48wmBAZJjdSl05gyNzN?usp=sharing))
+```
+
+### 🧠 Model Performance Summary
+
+| Model | Size | Speed | Use Case |
+|------|------|------|------|
+| `best_model.pt` | 253 MB | - | Training / Retraining |
+| `model.onnx` | 253 MB | ~100ms | Standard inference |
+| `model_quantized.onnx` | 63 MB | ~50ms | Production API |
+
+- `tokenizer/` - BERT tokenizer files
+
+> **Note:** The quantized model (`model_quantized.onnx`) is used by the API for **fast CPU inference**.
 
