@@ -160,7 +160,7 @@ python ml/export/convert_to_onnx.py
 ```
 **Option 2: Download model files from Google Drive**
 ```bash
-[**Click here to download all model files**]([https://drive.google.com/your-link-here](https://drive.google.com/drive/folders/1MwDD241H39wSH48wmBAZJjdSl05gyNzN?usp=sharing))
+Click here to download all model files : (https://drive.google.com/drive/folders/1MwDD241H39wSH48wmBAZJjdSl05gyNzN?usp=sharing)
 ```
 
 ### 🧠 Model Performance Summary
@@ -174,4 +174,114 @@ python ml/export/convert_to_onnx.py
 - `tokenizer/` - BERT tokenizer files
 
 > **Note:** The quantized model (`model_quantized.onnx`) is used by the API for **fast CPU inference**.
+
+## 🏋️ Training Instructions
+
+### Step 1: Generate Dataset
+
+Run the synthetic data generator to create the review dataset.
+
+```bash
+python ml/generate_data.py
+```
+
+**Output**
+
+```
+reviews_dataset.csv
+```
+
+- Contains **50,000 reviews**
+- **5% fraudulent reviews**
+- **95% legitimate reviews**
+
+---
+
+### Step 2: Preprocess Data with SMOTE
+
+This step cleans the text, tokenizes it for BERT, and handles class imbalance using **SMOTE oversampling**.
+
+```bash
+python ml/preprocessing/preprocess.py
+```
+
+**Outputs**
+
+```
+train_data.pkl
+val_data.pkl
+test_data.pkl
+```
+
+Dataset split:
+
+- **80% Training**
+- **10% Validation**
+- **10% Test**
+
+---
+
+### Step 3: Train Model
+
+Train the fraud detection model using **DistilBERT**.
+
+#### Local Training (CPU)
+
+```bash
+python ml/training/train.py
+```
+
+Estimated time:
+
+```
+~1.5 hours
+```
+
+#### Google Colab Training (GPU)
+
+1. Upload the following files to Colab:
+
+```
+train_data.pkl
+val_data.pkl
+```
+
+2. Run the training notebook.
+
+Estimated time:
+
+```
+~20 minutes
+```
+
+The training process outputs the best performing model:
+
+```
+best_model.pt
+```
+
+---
+
+### Step 4: Export Model to ONNX
+
+Convert the trained PyTorch model into **ONNX format** and apply **INT8 quantization** for faster CPU inference.
+
+```bash
+python ml/export/convert_to_onnx.py
+```
+
+**Outputs**
+
+```
+model.onnx
+model_quantized.onnx
+```
+
+Performance improvement:
+
+```
+74.9% model size reduction
+```
+
+The **quantized ONNX model** is used by the **FastAPI inference service** for production.
 
